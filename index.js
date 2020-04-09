@@ -20,28 +20,27 @@ inquirer
     {
         type: "input",
         name: "Installation",
-        message: "Is there a Special Installation?"
-
+        message: "What things will you need to install the software and how to install them?"
     },
     {
         type: "input",
         name: "Usage",
-        message: "What's the Usage?"
+        message: "Provide instructions and examples for use. Include screenshots as needed.",
     },
     {
         type: "input",
         name: "License",
-        message: "What's the License?"
+        message: "Add a License?"
     },
     {
         type: "input",
         name: "Contributing",
-        message: "Who is Contributing?"
+        message: "Add an Contributing Covenant"
     },
     {
         type: "input",
         name: "Tests",
-        message: "Are there any test?"
+        message: "Write tests for your application. Then provide examples on how to run them."
     },
     {
         type: "input",
@@ -50,30 +49,37 @@ inquirer
     },
     ])
     .then(function (answer) {
-        console.log(answer)
+        // console.log(answer)
 
-        const queryUrl = `https://api.github.com/users/${answer.username}/repos?per_page=100`;
+        const queryUrl = `https://api.github.com/users/${answer.username}?acceses_token=0c8635d351a30c3534085cffdb89e924eb82b4b4`;
         axios.get(queryUrl).then((data) => {
             console.log('data from github!!!', data.data)
 
             var readme = `
-                ***Title:
+                #Project Title:
                 ${answer.Title}
-                **Description:
+                ##Description:
                 ${answer.Description}
-                **Installation:
+                ##Table of Contents
+                *[Installation](#Installation)
+                *[Usage](#Usage)
+                *[License](#License)
+                *[Contributing](#Contributing)
+                *[Test](#Test)
+                ###Installation:
                 ${answer.Installation}
-                **Usage:
+                ###Usage:
                 ${answer.Usage}
-                **Licence:
+                ###Licence:
                 ${answer.License}
-                **Contributing:
-                ${answer.Contributing}
-                **Test:
+                ###Contributing:
+                [![${answer.Contributing}](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+                ###Test:
                 ${answer.Tests}
-                **Questions:
+                ###Questions:
                 ${answer.Questions}
                 ![alt text](${data.data.avatar_url})
+                ![alt text](${data.data.email})
 
                 `
 
